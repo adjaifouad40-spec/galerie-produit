@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fouad Adjai — Développeur Frontend</title>
+  <meta name="description" content="Page de présentation de Fouad Adjai, développeur frontend." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --fond: #f8f3ec;
+      --texte: #221a14;
+      --texte-doux: #6b5f55;
+      --accent: #cd5c38;
+      --accent-clair: #f0c9a8;
+      --etiquette: #ede3d6;
+      --bordure: #dccfbf;
+      --grille: rgba(34, 26, 20, 0.06);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Manrope", system-ui, sans-serif;
+      background: var(--fond);
+      color: var(--texte);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Décor : grille + tache de couleur */
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--grille) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grille) 1px, transparent 1px);
+      background-size: 56px 56px;
+      -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+      mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+      pointer-events: none;
+    }
+
+    .tache {
+      position: absolute;
+      top: -4rem;
+      right: -6rem;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(205, 92, 56, 0.55), rgba(240, 201, 168, 0.4) 45%, transparent 70%);
+      filter: blur(40px);
+      animation: flotter 14s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .contenu {
+      position: relative;
+      width: 100%;
+      max-width: 64rem;
+      margin: 0 auto;
+      padding: 6rem 2.5rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      margin-bottom: 2rem;
+      border: 1px solid var(--bordure);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.6);
+      font-size: 0.875rem;
+      color: var(--texte-doux);
+    }
+    .badge .point {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+    }
+
+    h1 {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-weight: 400;
+      font-size: clamp(3.75rem, 11vw, 8rem);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+    }
+    h1 em { color: var(--accent); }
+
+    .sous-titre {
+      margin-top: 1.5rem;
+      font-size: clamp(1.25rem, 2.4vw, 1.5rem);
+      font-weight: 500;
+    }
+
+    .objectif {
+      margin-top: 1.25rem;
+      max-width: 42rem;
+      font-size: 1.125rem;
+      line-height: 1.65;
+      color: var(--texte-doux);
+    }
+
+    .passions {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+    .passions li {
+      padding: 0.4rem 1rem;
+      border: 1px solid var(--bordure);
+      border-radius: 999px;
+      background: var(--etiquette);
+      font-size: 0.875rem;
+    }
+
+    .bouton {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 3rem;
+      height: 3.5rem;
+      padding: 0 2rem;
+      border: none;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      font: 500 1rem "Manrope", sans-serif;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 10px 30px -10px rgba(205, 92, 56, 0.6);
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    }
+    .bouton:hover {
+      transform: translateY(-2px);
+      background: #b94f2e;
+      box-shadow: 0 18px 40px -12px rgba(205, 92, 56, 0.7);
+    }
+    .bouton .fleche { transition: transform 0.3s; }
+    .bouton:hover .fleche { transform: translateX(4px); }
+
+    /* Apparition progressive */
+    .apparition { animation: monter 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    .d1 { animation-delay: 0.1s; }
+    .d2 { animation-delay: 0.2s; }
+    .d3 { animation-delay: 0.3s; }
+    .d4 { animation-delay: 0.4s; }
+    .d5 { animation-delay: 0.5s; }
+
+    @keyframes monter {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes flotter {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-20px, 20px) scale(1.06); }
+    }
+
+    @media (max-width: 640px) {
+      .contenu { padding: 5rem 1.5rem; }
+      .tache { width: 340px; height: 340px; right: -8rem; top: -6rem; }
+    }
+  </style>
+</head>
+<body>
+  <main class="hero">
+    <div class="tache" aria-hidden="true"></div>
+
+    <section class="contenu">
+      <p class="badge apparition"><span class="point"></span> Disponible pour de nouveaux projets</p>
+
+      <h1 class="apparition d1">Fouad <em>Adjai</em></h1>
+
+      <h2 class="sous-titre apparition d2">
+        Développeur Frontend — je transforme des idées en interfaces claires et vivantes.
+      </h2>
+
+      <p class="objectif apparition d3">
+        Mon objectif : créer des expériences web rapides, accessibles et agréables à utiliser,
+        où chaque détail compte. J'aime apprendre, expérimenter et faire le pont entre le design
+        et le code.
+      </p>
+
+      <ul class="passions apparition d4" aria-label="Mes passions">
+        <li>Design d'interface</li>
+        <li>Accessibilité</li>
+        <li>Animations</li>
+        <li>React &amp; TypeScript</li>
+      </ul>
+
+      <a href="#projets" class="bouton apparition d5">
+        Voir mes projets <span class="fleche">→</span>
+      </a>
+    </section>
+  </main>
+</body>
+</html>
